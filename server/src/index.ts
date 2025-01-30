@@ -5,6 +5,7 @@ import * as dynamoose from "dynamoose"
 import express from "express"
 import helmet from "helmet"
 import morgan from "morgan"
+import courseRoutes from "./routes/courseRoutes"
 
 // configurations
 dotenv.config()
@@ -28,6 +29,8 @@ app.use(morgan("common")) // for logging
 app.get("/", (req, res) => {
   res.send("Hello World!")
 })
+
+app.use("/courses", courseRoutes)
 
 // Start server
 const port = process.env.PORT || 8001
