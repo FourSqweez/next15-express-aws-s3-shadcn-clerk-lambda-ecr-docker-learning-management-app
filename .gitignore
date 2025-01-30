@@ -1,0 +1,31 @@
+# Ignore node_modules in both client and server folders
+/client/node_modules/
+/server/node_modules/
+
+# Ignore build and dist folders
+/client/build/
+/client/dist/
+/server/build/
+/server/dist/
+
+# Ignore environment variable files
+/client/.env
+/server/.env
+
+# Ignore log files
+/client/logs/
+/server/logs/
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+*.iml
