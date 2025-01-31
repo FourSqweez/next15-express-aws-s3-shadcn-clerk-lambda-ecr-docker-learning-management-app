@@ -1,7 +1,7 @@
 "use client"
-import { useCarousel } from "@/app/hooks/useCarousel"
 import CourseCardSearch from "@/components/CourseCardSearch"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useCarousel } from "@/hooks/useCarousel"
 import { useGetCoursesQuery } from "@/state/api"
 import { motion } from "framer-motion"
 import Image from "next/image"
