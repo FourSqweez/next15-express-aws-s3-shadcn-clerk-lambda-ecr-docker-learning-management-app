@@ -144,11 +144,11 @@ input[type="color"] {
 
 /* Search Page */
 .search {
-  @apply mx-auto flex h-full w-3/4 flex-col bg-background text-foreground;
+  @apply mx-auto flex h-full w-3/4 flex-col text-foreground;
 }
 
 .search__title {
-  @apply mt-14 text-2xl font-normal;
+  @apply mt-14 text-2xl font-normal text-gray-300;
 }
 
 .search__subtitle {
@@ -1362,11 +1362,11 @@ input[type="color"] {
 }
 
 .course-card-search__title {
-  @apply line-clamp-1 font-semibold;
+  @apply line-clamp-1 font-semibold text-gray-300;
 }
 
 .course-card-search__description {
-  @apply mt-1 line-clamp-2 text-sm;
+  @apply mt-1 line-clamp-2 text-sm text-gray-400;
 }
 
 .course-card-search__teacher {
