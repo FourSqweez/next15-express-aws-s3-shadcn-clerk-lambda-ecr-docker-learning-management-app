@@ -1,9 +1,12 @@
 "use client"
 import { useCarousel } from "@/app/hooks/useCarousel"
+import CourseCardSearch from "@/components/CourseCardSearch"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useGetCoursesQuery } from "@/state/api"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 const LoadingSkeleton = () => {
   return (
@@ -38,7 +41,15 @@ const LoadingSkeleton = () => {
 }
 
 const Landing = () => {
+  const router = useRouter()
   const currentImage = useCarousel({ totalImages: 3 })
+  const { data: courses, isLoading, isError } = useGetCoursesQuery({})
+
+  const handleCourseClick = (courseId: string) => {
+    router.push(`/search?id=${courseId}`)
+  }
+
+  if (isLoading) return <LoadingSkeleton />
 
   return (
     <motion.div
@@ -54,7 +65,7 @@ const Landing = () => {
         className="landing__hero"
       >
         <div className="landing__hero-content">
-          <h1 className="landing_title">Courses</h1>
+          <h1 className="landing__title">Courses</h1>
           <p className="landing__description">
             This is the list of the courses you can enroll in.
             <br />
@@ -75,7 +86,7 @@ const Landing = () => {
               alt={`Hero Banner ${index + 1}`}
               fill
               priority={index === currentImage}
-              sizes="(max-width: 768px) 100vw, (max-width:1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className={`landing__hero-image ${
                 index === currentImage ? "landing__hero-image--active" : ""
               }`}
@@ -110,7 +121,23 @@ const Landing = () => {
           ))}
         </div>
 
-        <div className="landing__courses">{/* Courses display */}</div>
+        <div className="landing__courses">
+          {courses &&
+            courses.slice(0, 4).map((course, index) => (
+              <motion.div
+                key={course.courseId}
+                initial={{ y: 50, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ amount: 0.4 }}
+              >
+                <CourseCardSearch
+                  course={course}
+                  onClick={() => handleCourseClick(course.courseId)}
+                />
+              </motion.div>
+            ))}
+        </div>
       </motion.div>
     </motion.div>
   )
