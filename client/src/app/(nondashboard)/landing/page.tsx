@@ -3,6 +3,7 @@ import CourseCardSearch from "@/components/CourseCardSearch"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useCarousel } from "@/hooks/useCarousel"
 import { useGetCoursesQuery } from "@/state/api"
+import { useUser } from "@clerk/nextjs"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -41,6 +42,7 @@ const LoadingSkeleton = () => {
 }
 
 const Landing = () => {
+  const { user } = useUser()
   const router = useRouter()
   const currentImage = useCarousel({ totalImages: 3 })
   const { data: courses, isLoading, isError } = useGetCoursesQuery({})
