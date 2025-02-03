@@ -1,4 +1,4 @@
-import { createClerkClient } from "@clerk/express"
+import { clerkMiddleware, createClerkClient, requireAuth } from "@clerk/express"
 import bodyParser from "body-parser"
 import cors from "cors"
 import dotenv from "dotenv"
@@ -30,6 +30,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })) // for sec
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })) // for parsing application/x-www-form-urlencoded
 app.use(morgan("common")) // for logging
+app.use(clerkMiddleware())
 
 // Routes
 app.get("/", (req, res) => {
@@ -37,7 +38,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/courses", courseRoutes)
-app.use("/user/clerk", userClerkRoutes)
+app.use("/user/clerk", requireAuth(), userClerkRoutes)
 
 // Start server
 const port = process.env.PORT || 8001
